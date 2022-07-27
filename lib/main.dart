@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ihosiris/screens/main%20tabs/anaylsisgraph.dart';
+import 'package:ihosiris/screens/wrapper.dart';
+import 'package:ihosiris/services/auth.dart';
 import 'package:ihosiris/unused/connect1.dart';
 import 'package:ihosiris/screens/main%20tabs/profile_pages/profile.dart';
 import 'package:ihosiris/widgets/curved_bnb.dart';
 import 'package:ihosiris/widgets/custom_bnb.dart';
+import 'package:provider/provider.dart';
+import 'models/user.dart';
 import 'screens/login pages/login.dart';
 import 'screens/main tabs/profile_pages/profile.dart';
 import 'screens/main tabs/connect_pages/connect3.dart';
@@ -27,19 +31,51 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // color: Color(0xffEDF2F4),
-      // home: GraphPage(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const LoginPage(),
-        '/signup': (context) => const SignUp(),
-        '/main': (context) => const CurvedBNB(),
-        '/analysis': (context) => const AnalysisPage(),
-        '/support': (context) => const SupportPage(),
-        // '/sec': (context) => const ProfilePage(),
-      },
-    );
+    try {
+      return StreamProvider<UserUID?>.value(
+        value: AuthService().user,
+        initialData: null,
+        catchError: (context, e) {
+          print("no");
+          print(e.toString());
+          //return null;
+        },
+        // ignore: prefer_const_constructors
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          // color: Color(0xffEDF2F4),
+          // home: GraphPage(),
+          home: Wrapper(),
+          // initialRoute: '/',
+          // routes: {
+          //   '/': (context) => const Wrapper(),
+          //   '/login': (context) => const LoginPage(),
+          //   '/signup': (context) => const SignUp(),
+          //   '/main': (context) => const CurvedBNB(),
+          //   '/analysis': (context) => const AnalysisPage(),
+          //   '/support': (context) => const SupportPage(),
+          //   // '/sec': (context) => const ProfilePage(),
+          // },
+        ),
+      );
+    } catch (e) {
+      print(e.toString());
+      return Text("dont visit this page");
+    }
+
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   // color: Color(0xffEDF2F4),
+    //   // home: GraphPage(),
+    //   initialRoute: '/',
+    //   routes: {
+    //     '/': (context) => const LoginPage(),
+    //     '/signup': (context) => const SignUp(),
+    //     '/main': (context) => const CurvedBNB(),
+    //     '/analysis': (context) => const AnalysisPage(),
+    //     '/support': (context) => const SupportPage(),
+    //     // '/sec': (context) => const ProfilePage(),
+    //   },
+    // );
   }
 }

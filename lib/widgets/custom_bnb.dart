@@ -15,7 +15,7 @@ class MyBNB extends StatefulWidget {
 class _MyBNBState extends State<MyBNB> {
   int curr = 1;
 
-  static const List<Widget> _widgetList = [
+  static List<Widget> _widgetList = [
     ConnectPage(),
     // Connect1Page(),
     GraphPage(),

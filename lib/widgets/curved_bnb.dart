@@ -20,7 +20,7 @@ class CurvedBNB extends StatefulWidget {
 class _CurvedBNBState extends State<CurvedBNB> {
   int flag = 1;
   int pageNo = 1;
-  final screens = const [
+  final screens = [
     ConnectPage(),
     GraphPage(),
     ProfilePage(),
