@@ -143,7 +143,7 @@ class _SignUpState extends State<SignUp> {
                                     email, password, username);
                             if (result == null) {
                               setState(() {
-                                error = 'Wrong email format';
+                                error = 'email id taken';
                               });
                               //error = 'Could not sign you up';
                             } else {
