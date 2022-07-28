@@ -138,8 +138,9 @@ class _SignUpState extends State<SignUp> {
                         child: Text('Sign Up'),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
+                            dynamic result =
+                                await _auth.registerWithEmailAndPassword(
+                                    email, password, username);
                             if (result == null) {
                               setState(() {
                                 error = 'Wrong email format';
