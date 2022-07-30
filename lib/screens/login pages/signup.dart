@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ihosiris/models/user.dart';
 import 'package:ihosiris/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
   final Function toggleView;
@@ -10,13 +12,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
+  final newUser = UserDetails.init();
   //const SignUp({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-  String email = '';
   String password = '';
   String error = '';
   String confirmPassword = '';
-  String username = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                         validator: (val) =>
                             val!.isEmpty ? 'Enter Username' : null,
                         onChanged: (val) {
-                          setState(() => username = val);
+                          setState(() => newUser.username = val);
                         },
                         decoration: InputDecoration(
                             hintText: "Username",
@@ -76,9 +77,46 @@ class _SignUpState extends State<SignUp> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        validator: (val) =>
+                            val!.isEmpty ? 'Enter Address' : null,
+                        onChanged: (val) {
+                          setState(() => newUser.address = val);
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Address",
+                            labelText: "address",
+                            labelStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(),
+                            fillColor: Colors.grey[300],
+                            filled: true),
+                        obscureText: false,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        validator: (val) => val!.isEmpty ? 'Enter Phone' : null,
+                        onChanged: (val) {
+                          setState(() => newUser.phone = val);
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Phone Number",
+                            labelText: "phone",
+                            labelStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(),
+                            fillColor: Colors.grey[300],
+                            filled: true),
+                        obscureText: false,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
                         validator: (val) => val!.isEmpty ? 'Enter Email' : null,
                         onChanged: (val) {
-                          setState(() => email = val);
+                          setState(() => newUser.email = val);
                         },
                         decoration: InputDecoration(
                             hintText: "Email",
@@ -140,10 +178,11 @@ class _SignUpState extends State<SignUp> {
                           if (_formKey.currentState!.validate()) {
                             dynamic result =
                                 await _auth.registerWithEmailAndPassword(
-                                    email, password, username);
-                            if (result == null) {
+                                    newUser, password);
+                            if (result.runtimeType != UserCredential) {
+                              print("bye");
                               setState(() {
-                                error = 'email id taken';
+                                error = result.toString();
                               });
                               //error = 'Could not sign you up';
                             } else {

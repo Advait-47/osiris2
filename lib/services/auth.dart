@@ -7,16 +7,16 @@ class AuthService {
 
   // create user obj based on FirebaseUser
 
-  UserUID? _userFromFirebaseUser(User user) {
+  UserDetails? _userFromFirebaseUser(User user) {
     return user != null
-        ? UserUID(
+        ? UserDetails(
             uid: user.uid,
           )
         : null;
   }
 
   //auth change user stream
-  Stream<UserUID?> get user {
+  Stream<UserDetails?> get user {
     return _auth
         .authStateChanges()
         .map((User? user) => _userFromFirebaseUser(user!));
@@ -48,32 +48,33 @@ class AuthService {
   }
 
   //sign in email password
-  Future signInWithEmailAndPassword(String email, String password) async {
+  Future signInWithEmailAndPassword(
+      UserDetails existingUser, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+          email: existingUser.email, password: password);
       User? user = result.user;
       return _userFromFirebaseUser(user!);
-    } catch (e) {
-      print(e.toString());
+    } on FirebaseAuthException catch (e) {
+      return e.code;
     }
   }
 
   //register with email pass
 
   Future registerWithEmailAndPassword(
-      String email, String password, String username) async {
+      UserDetails newUser, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-        email: email,
+        email: newUser.email,
         password: password,
       );
+
       User? user = result.user;
-      await DatabaseService(uid: user!.uid)
-          .updateUserData(username, user.uid, email);
+      await DatabaseService(uid: user!.uid).updateUserData(newUser, user.uid);
       return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
+    } on FirebaseAuthException catch (e) {
+      return e.code;
     }
   }
   //signout

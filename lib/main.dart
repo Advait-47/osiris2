@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     try {
-      return StreamProvider<UserUID?>.value(
+      return StreamProvider<UserDetails?>.value(
         value: AuthService().user,
         initialData: null,
         catchError: (context, e) {

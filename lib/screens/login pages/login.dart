@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ihosiris/models/user.dart';
 import 'package:ihosiris/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  String email = '';
+  final existingUser = UserDetails.init();
   String password = '';
   String error = '';
   String confirmPassword = '';
@@ -62,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (val) =>
                               val!.isEmpty ? 'Enter Email' : null,
                           onChanged: (val) {
-                            setState(() => email = val);
+                            setState(() => existingUser.email = val);
                           },
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -100,11 +102,13 @@ class _LoginPageState extends State<LoginPage> {
                       GestureDetector(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
-                            if (result == null) {
+                            dynamic result =
+                                await _auth.signInWithEmailAndPassword(
+                                    existingUser, password);
+                            if (result.runtimeType != UserCredential) {
+                              print("hi");
                               setState(() {
-                                error = 'Incorrect Credentials';
+                                error = result.toString();
                               });
                               //error = 'Could not sign you up';
                             } else {
@@ -133,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 50),
 
                       Text(
                         error,
