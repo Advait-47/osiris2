@@ -4,8 +4,8 @@ import 'package:ihosiris/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
-  final Function toggleView;
-  SignUp({required this.toggleView});
+  // final Function toggleView;
+  // SignUp({required this.toggleView});
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -179,14 +179,16 @@ class _SignUpState extends State<SignUp> {
                             dynamic result =
                                 await _auth.registerWithEmailAndPassword(
                                     newUser, password);
-                            if (result.runtimeType != UserCredential) {
+                            if (result.runtimeType != UserDetails) {
                               print("bye");
                               setState(() {
                                 error = result.toString();
                               });
+                              print(result.runtimeType);
                               //error = 'Could not sign you up';
                             } else {
-                              widget.toggleView();
+                              Navigator.pop(context);
+                              //widget.toggleView();
                             }
                           }
                           // if (password == confirmPassword) {

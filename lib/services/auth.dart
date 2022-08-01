@@ -68,6 +68,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: newUser.email,
         password: password,
+        
       );
 
       User? user = result.user;

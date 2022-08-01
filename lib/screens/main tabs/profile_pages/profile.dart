@@ -1,5 +1,11 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ihosiris/models/user.dart';
+import 'package:ihosiris/services/database.dart';
 import 'package:ihosiris/widgets/custom_bnb.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -13,6 +19,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserDetails?>(context);
+    //FUNCTION I WAS TALKING ABOUT
+    dynamic userdetails =
+        DatabaseService(uid: user!.uid).getUserData(user.uid).then((value) {
+      print(value);
+    });
+    print(userdetails.runtimeType);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -79,7 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '@ username',
+                        'hi1',
+                        //'@ ${userdetails.username}',
                         style: TextStyle(
                           color: Colors.grey[800],
                         ),
@@ -97,13 +112,35 @@ class _ProfilePageState extends State<ProfilePage> {
                     left: 25,
                     right: 25,
                   ),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.topLeft,
-                    child: Text(
-                      ' \tCONTACT: 7219808011\n\n\n \tADDRESS: Krushna Nagar,Amravati\n\n\n \tDEVICE ID: 123654',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'hi2',
+                          //'Contact: ${userdetails.phone}',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          'hi3',
+                          //'Address: ${userdetails.address}',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          'hi4',
+                          //'Email Address: ${userdetails.email}',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
+                    // child: Text(
+                    //   ' \tCONTACT: 7219808011\n\n\n \tADDRESS: Krushna Nagar,Amravati\n\n\n \tDEVICE ID: 123654',
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
                   ),
                 ),
                 Container(

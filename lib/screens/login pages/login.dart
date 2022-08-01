@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ihosiris/models/user.dart';
 import 'package:ihosiris/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ihosiris/widgets/curved_bnb.dart';
 
 class LoginPage extends StatefulWidget {
   //const LoginPage({Key? key}) : super(key: key);
-  final Function toggleView;
-  LoginPage({required this.toggleView});
+  // final Function toggleView;
+  // LoginPage({required this.toggleView});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -18,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   String password = '';
   String error = '';
   String confirmPassword = '';
-  String username = '';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -107,12 +107,20 @@ class _LoginPageState extends State<LoginPage> {
                                     existingUser, password);
                             if (result.runtimeType != UserCredential) {
                               print("hi");
+                              print(result.uid);
                               setState(() {
                                 error = result.toString();
                               });
                               //error = 'Could not sign you up';
                             } else {
-                              widget.toggleView();
+                              print("phat bsdk");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CurvedBNB()));
+                              //pushReplacementNamed
+                              //'/main'
+                              //widget.toggleView();
                             }
                           }
                           //Navigator.pushReplacementNamed(context, '/main');
@@ -160,8 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      widget.toggleView();
-                      //Navigator.pushNamed(context, '/signup');
+                      //widget.toggleView();
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Register now',

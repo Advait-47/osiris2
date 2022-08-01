@@ -12,11 +12,12 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserDetails?>(context);
     print(user);
-    //
+    
     if (user == null) {
-      return Authenticate();
+      return LoginPage();
     } else {
       return CurvedBNB();
     }
+    //return null;
   }
 }

@@ -10,5 +10,7 @@ class UserDetails {
     required this.uid,
     required this.username,
     required this.email,
+    required this.address,
+    required this.phone,
   });
 }

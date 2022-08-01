@@ -45,17 +45,17 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // color: Color(0xffEDF2F4),
           // home: GraphPage(),
-          home: Wrapper(),
-          // initialRoute: '/',
-          // routes: {
-          //   '/': (context) => const Wrapper(),
-          //   '/login': (context) => const LoginPage(),
-          //   '/signup': (context) => const SignUp(),
-          //   '/main': (context) => const CurvedBNB(),
-          //   '/analysis': (context) => const AnalysisPage(),
-          //   '/support': (context) => const SupportPage(),
-          //   // '/sec': (context) => const ProfilePage(),
-          // },
+          //home: Wrapper(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const Wrapper(),
+            '/login': (context) => LoginPage(),
+            '/signup': (context) => SignUp(),
+            '/main': (context) => CurvedBNB(),
+            '/analysis': (context) => const AnalysisPage(),
+            '/support': (context) => const SupportPage(),
+            // '/sec': (context) => const ProfilePage(),
+          },
         ),
       );
     } catch (e) {

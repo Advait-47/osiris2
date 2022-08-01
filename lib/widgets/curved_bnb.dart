@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens/main tabs/profile_pages/profile.dart';
 import '../screens/main tabs/anaylsisgraph.dart';
@@ -10,7 +11,8 @@ class CurvedBNB extends StatefulWidget {
   // final int p;
 
   // const CurvedBNB(this.p, {Key? key}) : super(key: key);
-  const CurvedBNB({Key? key}) : super(key: key);
+  UserCredential? user;
+  CurvedBNB({Key? key}) : super(key: key);
 
   @override
   // State<CurvedBNB> createState() => _CurvedBNBState(pageNo: p);
@@ -30,6 +32,7 @@ class _CurvedBNBState extends State<CurvedBNB> {
 
   @override
   Widget build(BuildContext context) {
+    UserCredential? user = widget.user;
     return Container(
       color: Color(0xFF212529),
       child: SafeArea(
