@@ -26,7 +26,7 @@ class DatabaseService {
 
   //FUNTION I WAS TALKING ABOUT
   Future<UserDetails?> getUserData(String uid) async {
-    UserDetails? u;
+    UserDetails? u = null;
     try {
       await db.doc('Users').get().then(
         (DocumentSnapshot docum) {
@@ -39,6 +39,7 @@ class DatabaseService {
               username: data[uid]['username'].toString(),
               email: data[uid]['email'].toString(),
               address: data[uid]['address'].toString(),
+
               phone: data[uid]['contact'].toString());
           //return doc;
           // final data = doc.data() as Map<String, dynamic>;
@@ -65,6 +66,7 @@ class DatabaseService {
     } catch (e) {
       print(e.toString());
       return null;
+
     }
   }
 }

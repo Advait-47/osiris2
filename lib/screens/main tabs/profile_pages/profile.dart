@@ -45,6 +45,14 @@ class _ProfilePageState extends State<ProfilePage> {
     //   print(userFinal);
     // });
     // print(userdetails.runtimeType);
+    final user = Provider.of<UserDetails?>(context);
+    //FUNCTION I WAS TALKING ABOUT
+    dynamic userdetails =
+        DatabaseService(uid: user!.uid).getUserData(user.uid).then((value) {
+      print(value);
+    });
+    print(userdetails.runtimeType);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -64,6 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.807,
             color: const Color(0xffEDF2F4),
+            
             child: (userFinal != null)
                 ? Builder(builder: (context) {
                     return Column(
@@ -74,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.symmetric(
                             vertical: 40,
                             horizontal: 20,
+
                           ),
                           decoration: BoxDecoration(
                               color: Colors.green[200],

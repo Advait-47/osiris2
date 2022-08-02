@@ -22,6 +22,7 @@ class CurvedBNB extends StatefulWidget {
 class _CurvedBNBState extends State<CurvedBNB> {
   int flag = 1;
   int pageNo = 1;
+  
   PageController pageController = PageController();
   void _onItemTapped(int index) {
     setState(() {
@@ -31,11 +32,12 @@ class _CurvedBNBState extends State<CurvedBNB> {
         duration: Duration(microseconds: 1000), curve: Curves.easeIn);
   }
 
-  // final screens = [
-  //   ConnectPage(),
-  //   GraphPage(),
-  //   ProfilePage(),
-  // ];
+  final screens = [
+    ConnectPage(),
+    GraphPage(),
+    ProfilePage(),
+  ];
+
   // _CurvedBNBState({pageNo});
   _CurvedBNBState();
 
