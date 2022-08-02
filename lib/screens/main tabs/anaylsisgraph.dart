@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:ihosiris/services/auth.dart';
 import 'package:ihosiris/widgets/custom_bnb.dart';
 
 class GraphPage extends StatelessWidget {
-  const GraphPage({Key? key}) : super(key: key);
-
+  GraphPage({Key? key}) : super(key: key);
+  final AuthService _auth = AuthService();
   static final List<NPKanalysis> reportAnalysis = [
     NPKanalysis('N', 50, Colors.redAccent),
     NPKanalysis('P', 40, Colors.yellow.shade400),
@@ -28,6 +29,15 @@ class GraphPage extends StatelessWidget {
         // backgroundColor: Colors.grey[200],
         backgroundColor: Color(0xffEDF2F4),
         appBar: AppBar(
+          actions: <Widget>[
+            TextButton.icon(
+              icon: Icon(Icons.person),
+              onPressed: () async {
+                await _auth.signOut();
+              },
+              label: Text("Logout"),
+            )
+          ],
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
           backgroundColor: Colors.green[200],
           title: const Text(
