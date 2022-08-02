@@ -32,12 +32,15 @@ class DatabaseService {
         (DocumentSnapshot docum) {
           //print(docum.data().runtimeType);
           final data = docum.data() as Map<String, dynamic>;
+          print("UID : ${uid}");
+          print("Data : ${data.values.first}");
           u = UserDetails.getDetails(
               uid: uid,
               username: data[uid]['username'].toString(),
               email: data[uid]['email'].toString(),
               address: data[uid]['address'].toString(),
-              phone: data[uid]['phone'].toString());
+
+              phone: data[uid]['contact'].toString());
           //return doc;
           // final data = doc.data() as Map<String, dynamic>;
           // // ...
@@ -62,7 +65,8 @@ class DatabaseService {
       return u;
     } catch (e) {
       print(e.toString());
-      //return null;
+      return null;
+
     }
   }
 }
