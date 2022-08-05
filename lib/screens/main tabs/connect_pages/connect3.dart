@@ -63,24 +63,24 @@ class ConnectPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 60),
-              ElevatedButton(
-                child: Text('VIEW ANALYSIS'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/analysis');
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                    fixedSize: Size(350, 100),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    textStyle: TextStyle(
-                      fontSize: 30,
-                    ),
-                    primary: Colors.lightBlueAccent[100],
-                    onPrimary: Colors.black87,
-                    elevation: 15),
-              ),
+              // ElevatedButton(
+              //   child: Text('VIEW ANALYSIS'),
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, '/analysis');
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //       padding: EdgeInsets.all(20.0),
+              //       fixedSize: Size(350, 100),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(20)),
+              //       ),
+              //       textStyle: TextStyle(
+              //         fontSize: 30,
+              //       ),
+              //       primary: Colors.lightBlueAccent[100],
+              //       onPrimary: Colors.black87,
+              //       elevation: 15),
+              // ),
             ],
           ),
         ),
