@@ -59,6 +59,27 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       TextFormField(
                         validator: (val) =>
+                            val!.isEmpty && val.split(' ').length == 2
+                                ? 'Enter Full name'
+                                : null,
+                        onChanged: (val) {
+                          setState(() => newUser.name = val);
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Name",
+                            labelText: "Name",
+                            labelStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(),
+                            fillColor: Colors.grey[300],
+                            filled: true),
+                        obscureText: false,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        validator: (val) =>
                             val!.isEmpty ? 'Enter Username' : null,
                         onChanged: (val) {
                           setState(() => newUser.username = val);

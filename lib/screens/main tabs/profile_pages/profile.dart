@@ -72,7 +72,6 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.807,
             color: const Color(0xffEDF2F4),
-            
             child: (userFinal != null)
                 ? Builder(builder: (context) {
                     return Column(
@@ -83,7 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.symmetric(
                             vertical: 40,
                             horizontal: 20,
-
                           ),
                           decoration: BoxDecoration(
                               color: Colors.green[200],

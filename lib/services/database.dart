@@ -5,30 +5,25 @@ class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  final CollectionReference db = FirebaseFirestore.instance.collection('DB');
+  final db = FirebaseFirestore.instance;
 
   Future updateUserData(UserDetails newUser, String uid) async {
-    String username = newUser.username;
-    String email = newUser.email;
-    String address = newUser.address;
-    String phone = newUser.phone;
     print("pop");
-    return await db.doc('Users').set({
-      uid: {
-        "uid": uid,
-        "username": newUser.username,
-        "email": newUser.email,
-        "address": newUser.address,
-        "contact": newUser.phone,
-      }
-    }, SetOptions(merge: true));
+    return await db.collection('users').doc(uid).set({
+      "uid": uid,
+      "username": newUser.username,
+      "email": newUser.email,
+      "address": newUser.address,
+      "contact": newUser.phone,
+      "name": newUser.name,
+    });
   }
 
   //FUNTION I WAS TALKING ABOUT
   Future<UserDetails?> getUserData(String uid) async {
     UserDetails? u = null;
     try {
-      await db.doc('Users').get().then(
+      await db.collection('users').doc(uid).get().then(
         (DocumentSnapshot docum) {
           //print(docum.data().runtimeType);
           final data = docum.data() as Map<String, dynamic>;
@@ -36,11 +31,11 @@ class DatabaseService {
           print("Data : ${data.values.first}");
           u = UserDetails.getDetails(
               uid: uid,
-              username: data[uid]['username'].toString(),
-              email: data[uid]['email'].toString(),
-              address: data[uid]['address'].toString(),
-
-              phone: data[uid]['contact'].toString());
+              username: data['username'].toString(),
+              email: data['email'].toString(),
+              address: data['address'].toString(),
+              phone: data['contact'].toString(),
+              name: data['name'].toString());
           //return doc;
           // final data = doc.data() as Map<String, dynamic>;
           // // ...
@@ -66,7 +61,6 @@ class DatabaseService {
     } catch (e) {
       print(e.toString());
       return null;
-
     }
   }
 }

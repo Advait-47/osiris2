@@ -17,6 +17,7 @@ class UserDetails {
     required this.email,
     required this.address,
     required this.phone,
+    required this.name,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,6 +27,7 @@ class UserDetails {
       'email': email,
       'address': address,
       'phone': phone,
+      'name': name,
     };
   }
 }
