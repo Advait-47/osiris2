@@ -115,7 +115,6 @@ class _LoginPageState extends State<LoginPage> {
                               });
                               //error = 'Could not sign you up';
                             } else {
-                              print("phat bsdk");
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -151,6 +150,29 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   )),
 
+              //forgot password
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        //widget.toggleView();
+                        Navigator.pushNamed(context, '/recoveracc');
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.indigo,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+
               //not a member register
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -163,6 +185,12 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  // ElevatedButton(
+                  //     onPressed: () async {
+                  //       await FirebaseAuth.instance.sendPasswordResetEmail(
+                  //           email: "arduinofan1atmega@gmail.com");
+                  //     },
+                  //     child: Text("Forgot")),
                   GestureDetector(
                     onTap: () {
                       //widget.toggleView();

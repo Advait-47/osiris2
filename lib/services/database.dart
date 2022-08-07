@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ihosiris/models/testData.dart';
 import 'package:ihosiris/models/user.dart';
 
 class DatabaseService {
@@ -27,8 +28,6 @@ class DatabaseService {
         (DocumentSnapshot docum) {
           //print(docum.data().runtimeType);
           final data = docum.data() as Map<String, dynamic>;
-          print("UID : ${uid}");
-          print("Data : ${data.values.first}");
           u = UserDetails.getDetails(
               uid: uid,
               username: data['username'].toString(),
@@ -45,7 +44,7 @@ class DatabaseService {
           //     email: data[uid]['email'].toString(),
           //     address: data[uid]['address'].toString(),
           //     phone: data[uid]['phone'].toString());
-          // print(u.runtimeType.toString() + " fuck u");
+          //
         },
         onError: (e) => print("Error getting document: $e"),
       );
@@ -62,5 +61,43 @@ class DatabaseService {
       print(e.toString());
       return null;
     }
+  }
+
+  Future createNewTest(TestData newTest) async {
+    print("cop");
+    try {
+      return await db
+          .collection('users')
+          .doc(uid)
+          .collection('tests')
+          .doc(newTest.testTime.toString())
+          .set(newTest.toJson());
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getLastTest() async {
+    TestData t = TestData.init();
+    print("mop");
+    // try {
+    //   //print(
+    //   //db.collection('users').doc(uid).collection('tests').snapshots().last);
+    //   return await db
+    //       .collection('users')
+    //       .doc(uid)
+    //       .collection('tests')
+    //       .snapshots();
+    // } catch (e) {
+    //   print(e.toString());
+    //   print("object");
+    //   throw 'aaaaaaa';
+    // }
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('tests')
+        .get();
+    return querySnapshot.docs.last.data();
   }
 }

@@ -9,6 +9,7 @@ import 'package:ihosiris/widgets/custom_bnb.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 import 'screens/login pages/login.dart';
+import 'screens/login pages/recoveracc.dart';
 import 'screens/main tabs/profile_pages/profile.dart';
 import 'screens/main tabs/connect_pages/connect3.dart';
 import 'unused/connect2.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
             '/main': (context) => CurvedBNB(),
             '/analysis': (context) => const AnalysisPage(),
             '/support': (context) => const SupportPage(),
+            '/recoveracc': (context) => const RecoverAccount(),
             // '/sec': (context) => const ProfilePage(),
           },
         ),
