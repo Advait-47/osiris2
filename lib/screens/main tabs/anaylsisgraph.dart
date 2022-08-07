@@ -1,16 +1,81 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:ihosiris/models/testData.dart';
 import 'package:ihosiris/services/auth.dart';
+import 'package:ihosiris/services/database.dart';
 import 'package:ihosiris/widgets/custom_bnb.dart';
 
-class GraphPage extends StatelessWidget {
+class GraphPage extends StatefulWidget {
   GraphPage({Key? key}) : super(key: key);
+
+  @override
+  State<GraphPage> createState() => _GraphPageState();
+}
+
+class _GraphPageState extends State<GraphPage> {
+  User? user = FirebaseAuth.instance.currentUser;
+  TestData oldtest = TestData.init();
   final AuthService _auth = AuthService();
-  static final List<NPKanalysis> reportAnalysis = [
-    NPKanalysis('N', 50, Colors.redAccent),
-    NPKanalysis('P', 40, Colors.yellow.shade400),
-    NPKanalysis('K', 70, Colors.greenAccent),
-  ];
+
+  List<NPKanalysis> reportAnalysis = [];
+  Future<void> getLatestData() async {
+    DatabaseService(uid: user!.uid).getLastTest().then((value) {
+      oldtest.fromJson(value);
+      print(oldtest.testTime);
+      setState(() {
+        reportAnalysis = [
+          NPKanalysis('N', oldtest.nitrogen.toInt(), Colors.redAccent),
+          NPKanalysis('P', oldtest.phosphorous.toInt(), Colors.yellow.shade400),
+          NPKanalysis('K', oldtest.potassium.toInt(), Colors.greenAccent),
+        ];
+      });
+    });
+    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(user!.uid)
+    //     .collection('tests')
+    //     .get();
+
+    // // Get data from docs and convert map to List
+    // print(querySnapshot.docs.last.data());
+    // print("pl,mn bvcfghjkl");
+    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    // print(allData.last);
+
+    // FutureBuilder(
+    //   future: DatabaseService(uid: user!.uid).getLastTest(),
+    //   builder: (context, snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.done) {
+    //       print("odsnsudfinfosdf");
+    //       return Text(snapshot.data.toString());
+    //     } else {
+    //       print("object");
+    //       return CircularProgressIndicator();
+    //     }
+    //     // if (snapshot.hasData) {
+    //     //   print(snapshot.data);
+    //     // } else {
+    //     //   print("no data");
+    //     // }
+    //     // return Text("data");
+    //   },
+    // );
+
+    // DatabaseService(uid: user!.uid).getLastTest().then((value) {
+    //   print(value);
+    //   //oldtest = value;
+    //   print("object");
+    // });
+  }
+
+  @override
+  void initState() {
+    getLatestData();
+    print("nice");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,33 +120,46 @@ class GraphPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.fromLTRB(30, 120, 30, 0),
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 2,
-                decoration: BoxDecoration(
-                  // color: Colors.white,
-                  color: Color(0xffEDF2F4),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(7, 7),
-                      spreadRadius: 4,
-                      blurRadius: 7,
-                    ),
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(-7, -7),
-                      spreadRadius: 4,
-                      blurRadius: 7,
-                    ),
-                  ],
-                ),
-                child: charts.BarChart(series),
+              Text("Test Taken: ${oldtest.testTime}"),
+              SizedBox(
+                height: 10,
               ),
+              Text("Uploaded on: ${oldtest.uploadTime}"),
+              SizedBox(
+                height: 10,
+              ),
+              Text("Latitude: ${oldtest.lat}"),
+              SizedBox(
+                height: 10,
+              ),
+              Text("Longitude: ${oldtest.lon}"),
+              Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.fromLTRB(30, 60, 30, 0),
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2,
+                  decoration: BoxDecoration(
+                    // color: Colors.white,
+                    color: Color(0xffEDF2F4),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(7, 7),
+                        spreadRadius: 4,
+                        blurRadius: 7,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(-7, -7),
+                        spreadRadius: 4,
+                        blurRadius: 7,
+                      ),
+                    ],
+                  ),
+                  child: charts.BarChart(series) //getLatestData(),
+                  ),
             ],
           ),
         ),

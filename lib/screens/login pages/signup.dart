@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ihosiris/models/testData.dart';
 import 'package:ihosiris/models/user.dart';
 import 'package:ihosiris/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -81,9 +82,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextFormField(
                           validator: (val) =>
-                              val!.isEmpty && val.split(' ').length == 2
-                                  ? 'Enter Full name'
-                                  : null,
+                              val!.isEmpty ? 'Enter Full name' : null,
                           onChanged: (val) {
                             setState(() => newUser.name = val);
                           },

@@ -1,9 +1,40 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ihosiris/models/testData.dart';
 import 'package:ihosiris/services/auth.dart';
+import 'package:ihosiris/services/database.dart';
+import 'dart:math';
 
-class ConnectPage extends StatelessWidget {
+class ConnectPage extends StatefulWidget {
   ConnectPage({Key? key}) : super(key: key);
+
+  @override
+  State<ConnectPage> createState() => _ConnectPageState();
+}
+
+class _ConnectPageState extends State<ConnectPage> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  //final DatabaseService _dbservice = DatabaseService(uid: user.uid);
   final AuthService _auth = AuthService();
+  TestData test = TestData.init();
+
+  postTestData() async {
+    DatabaseService(uid: user!.uid.toString())
+        .createNewTest(test)
+        .then((value) {
+      print("yess");
+      print(value);
+    });
+  }
+
+  @override
+  void initState() {
+    // postTestData();
+    // print("happy");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +54,7 @@ class ConnectPage extends StatelessWidget {
             )
           ],
           title: const Text(
-            'PROFILE',
+            'TEST',
             style: TextStyle(
               fontSize: 25,
               color: Colors.black,
@@ -59,7 +90,20 @@ class ConnectPage extends StatelessWidget {
               SizedBox(height: 60),
               ElevatedButton(
                 child: Text('START TEST'),
-                onPressed: () {},
+                onPressed: () async {
+                  setState(() {
+                    test.deviceID = 1;
+                    test.lat = 18.518174934068544;
+                    test.lon = 73.81512306165963;
+                    test.nitrogen = Random().nextDouble() * 100;
+                    test.phosphorous = Random().nextDouble() * 100;
+                    test.potassium = Random().nextDouble() * 100;
+                    test.testTime = DateTime.now().toLocal();
+                    test.uploadTime = DateTime.now().toLocal();
+                  });
+                  await postTestData();
+                  print("content");
+                },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(20.0),
                   fixedSize: Size(350, 100),

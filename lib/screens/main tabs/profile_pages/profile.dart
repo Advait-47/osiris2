@@ -83,13 +83,13 @@ class _ProfilePageState extends State<ProfilePage> {
           centerTitle: true,
           elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.807,
-            color: const Color(0xffEDF2F4),
-            child: (userFinal != null)
-                ? Builder(builder: (context) {
-                    return Column(
+        body: Container(
+          height: MediaQuery.of(context).size.height * 0.807,
+          color: const Color(0xffEDF2F4),
+          child: (userFinal != null)
+              ? Builder(builder: (context) {
+                  return SingleChildScrollView(
+                    child: Column(
                       children: [
                         Container(
                           height: 170,
@@ -212,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         BorderRadius.all(Radius.circular(20)),
                                   ),
                                   textStyle: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
                                   ),
                                   primary: Colors.lightBlueAccent[100],
                                   onPrimary: Colors.black87,
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         BorderRadius.all(Radius.circular(20)),
                                   ),
                                   textStyle: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
                                   ),
                                   primary: Colors.lightBlueAccent[100],
                                   onPrimary: Colors.black87,
@@ -242,12 +242,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ],
-                    );
-                  })
-                : Center(
-                    child: CircularProgressIndicator(),
-                  ),
-          ),
+                    ),
+                  );
+                })
+              : Center(
+                  child: CircularProgressIndicator(),
+                ),
         ),
       ),
     );
