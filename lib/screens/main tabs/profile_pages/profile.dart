@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ihosiris/models/user.dart';
+import 'package:ihosiris/services/auth.dart';
 import 'package:ihosiris/services/database.dart';
 import 'package:ihosiris/widgets/custom_bnb.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +18,14 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String name = 'Shravani Chinchmalatpure';
+  final AuthService _auth = AuthService();
 
   UserDetails? userFinal;
   User? user = FirebaseAuth.instance.currentUser;
 
   fetchData() async {
     DatabaseService(uid: user!.uid).getUserData(user!.uid).then((value) {
+      print(value.runtimeType);
       userFinal = value;
       print(userFinal!.phone);
       setState(() {});
@@ -32,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     fetchData();
+    print("plpllpl");
     super.initState();
   }
 
@@ -49,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
     //FUNCTION I WAS TALKING ABOUT
     dynamic userdetails =
         DatabaseService(uid: user!.uid).getUserData(user.uid).then((value) {
+      print("value");
       print(value);
     });
     print(userdetails.runtimeType);
@@ -58,6 +63,16 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
           backgroundColor: Colors.green[200],
+          actions: <Widget>[
+            TextButton.icon(
+              style: TextButton.styleFrom(primary: Colors.black),
+              icon: Icon(Icons.person),
+              onPressed: () async {
+                await _auth.signOut();
+              },
+              label: Text("Logout"),
+            )
+          ],
           title: const Text(
             'PROFILE',
             style: TextStyle(
@@ -113,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                name,
+                                '${userFinal!.name}',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
@@ -143,6 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
                                   // 'hi2',
@@ -151,6 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500),
                                 ),
+                                SizedBox(height: 20),
                                 Text(
                                   // 'hi3',
                                   'Address: ${userFinal!.address}',
@@ -158,6 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500),
                                 ),
+                                SizedBox(height: 20),
                                 Text(
                                   // 'hi4',
                                   'Email Address: ${userFinal!.email}',
@@ -165,6 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500),
                                 ),
+                                SizedBox(height: 20),
                               ],
                             ),
                             // child: Text(

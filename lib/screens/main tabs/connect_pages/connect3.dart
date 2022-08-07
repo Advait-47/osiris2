@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ihosiris/services/auth.dart';
 
 class ConnectPage extends StatelessWidget {
-  const ConnectPage({Key? key}) : super(key: key);
-
+  ConnectPage({Key? key}) : super(key: key);
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -11,14 +12,25 @@ class ConnectPage extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
           backgroundColor: Colors.green[200],
+          actions: <Widget>[
+            TextButton.icon(
+              style: TextButton.styleFrom(primary: Colors.black),
+              icon: Icon(Icons.person),
+              onPressed: () async {
+                await _auth.signOut();
+              },
+              label: Text("Logout"),
+            )
+          ],
           title: const Text(
-            'CONNECT',
+            'PROFILE',
             style: TextStyle(
               fontSize: 25,
               color: Colors.black,
             ),
           ),
           centerTitle: true,
+          elevation: 0,
         ),
         body: Container(
           alignment: Alignment.center,

@@ -22,7 +22,7 @@ class CurvedBNB extends StatefulWidget {
 class _CurvedBNBState extends State<CurvedBNB> {
   int flag = 1;
   int pageNo = 1;
-  
+
   PageController pageController = PageController();
   void _onItemTapped(int index) {
     setState(() {
@@ -51,14 +51,15 @@ class _CurvedBNBState extends State<CurvedBNB> {
         child: ClipRRect(
           child: Scaffold(
             extendBody: true,
-            body: PageView(
-              controller: pageController,
-              children: [
-                const ConnectPage(),
-                GraphPage(),
-                const ProfilePage(),
-              ],
-            ),
+            body: screens[flag],
+            // body: PageView(
+            //   controller: pageController,
+            //   children: [
+            //     const ConnectPage(),
+            //     const GraphPage(),
+            //     const ProfilePage(),
+            //   ],
+            // ),
             bottomNavigationBar: CurvedNavigationBar(
               // backgroundColor: Colors.transparent,
               backgroundColor: Color(0xffEDF2F4),

@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final existingUser = UserDetails.init();
   String password = '';
-  String error = '';
+  String error = ' ';
   String confirmPassword = '';
   @override
   Widget build(BuildContext context) {
@@ -108,9 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                                     existingUser, password);
                             if (result.runtimeType != UserCredential) {
                               print("hi");
-                              print(result.uid);
+                              print(result);
                               setState(() {
-                                error = result.toString();
+                                error = result.toString().replaceAll('-', ' ');
+                                error[0].toUpperCase();
                               });
                               //error = 'Could not sign you up';
                             } else {
@@ -146,12 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 50),
-
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      )
+                      const SizedBox(height: 10),
                     ],
                   )),
 
@@ -183,6 +179,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '${error[0].toUpperCase()}${error.substring(1)}',
+                style: TextStyle(color: Colors.red, fontSize: 18.0),
+              )
             ],
           ),
         ),

@@ -31,6 +31,7 @@ class GraphPage extends StatelessWidget {
         appBar: AppBar(
           actions: <Widget>[
             TextButton.icon(
+              style: TextButton.styleFrom(primary: Colors.black),
               icon: Icon(Icons.person),
               onPressed: () async {
                 await _auth.signOut();
