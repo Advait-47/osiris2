@@ -43,7 +43,7 @@ class _RecoverAccount extends State<RecoverAccount> {
             textAlign: TextAlign.left,
             style: TextStyle(
               //fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 14,
             ),
           ),
           SizedBox(

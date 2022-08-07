@@ -135,7 +135,7 @@ class _GraphPageState extends State<GraphPage> {
               Text("Longitude: ${oldtest.lon}"),
               Container(
                   padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.fromLTRB(30, 120, 30, 0),
+                  margin: const EdgeInsets.fromLTRB(30, 60, 30, 0),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2,
