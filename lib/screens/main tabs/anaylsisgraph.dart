@@ -19,7 +19,11 @@ class _GraphPageState extends State<GraphPage> {
   TestData oldtest = TestData.init();
   final AuthService _auth = AuthService();
 
-  List<NPKanalysis> reportAnalysis = [];
+  List<NPKanalysis> reportAnalysis = [
+    NPKanalysis('N', 80, Colors.redAccent),
+    NPKanalysis('P', 20, Colors.yellow.shade400),
+    NPKanalysis('K', 70, Colors.greenAccent),
+  ];
   Future<void> getLatestData() async {
     try {
       DatabaseService(uid: user!.uid).getLastTest().then((value) {
