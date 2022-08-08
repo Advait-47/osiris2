@@ -75,96 +75,98 @@ class _ConnectPageState extends State<ConnectPage> {
         body: Container(
           alignment: Alignment.center,
           color: const Color(0xffEDF2F4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                child: const Text('CONNECT'),
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20.0),
-                  fixedSize: Size(350, 100),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: const Text('CONNECT'),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(20.0),
+                    fixedSize: Size(350, 100),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 30,
+                    ),
+                    primary: Colors.lightBlueAccent[100],
+                    // primary: Colors.lightGreenAccent[100],
+                    onPrimary: Colors.black87,
+                    elevation: 15,
                   ),
-                  textStyle: TextStyle(
-                    fontSize: 30,
-                  ),
-                  primary: Colors.lightBlueAccent[100],
-                  // primary: Colors.lightGreenAccent[100],
-                  onPrimary: Colors.black87,
-                  elevation: 15,
                 ),
-              ),
-              SizedBox(height: 60),
-              ElevatedButton(
-                child: Text('START TEST'),
-                onPressed: () async {
-                  setState(() {
-                    test.deviceID = 1;
-                    test.lat = 18.518174934068544;
-                    test.lon = 73.81512306165963;
-                    test.nitrogen = Random().nextDouble() * 100;
-                    test.phosphorous = Random().nextDouble() * 100;
-                    test.potassium = Random().nextDouble() * 100;
-                    test.testTime = DateTime.now().toLocal();
-                    test.uploadTime = DateTime.now().toLocal();
-                  });
-                  await postTestData();
-                  print("content");
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20.0),
-                  fixedSize: Size(350, 100),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                SizedBox(height: 60),
+                ElevatedButton(
+                  child: Text('START TEST'),
+                  onPressed: () async {
+                    setState(() {
+                      test.deviceID = 1;
+                      test.lat = 18.518174934068544;
+                      test.lon = 73.81512306165963;
+                      test.nitrogen = Random().nextDouble() * 100;
+                      test.phosphorous = Random().nextDouble() * 100;
+                      test.potassium = Random().nextDouble() * 100;
+                      test.testTime = DateTime.now().toLocal();
+                      test.uploadTime = DateTime.now().toLocal();
+                    });
+                    await postTestData();
+                    print("content");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(20.0),
+                    fixedSize: Size(350, 100),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 30,
+                    ),
+                    primary: Colors.lightBlueAccent[100],
+                    onPrimary: Colors.black87,
+                    elevation: 15,
                   ),
-                  textStyle: TextStyle(
-                    fontSize: 30,
-                  ),
-                  primary: Colors.lightBlueAccent[100],
-                  onPrimary: Colors.black87,
-                  elevation: 15,
                 ),
-              ),
-              SizedBox(height: 60),
-              // ElevatedButton(
-              //   child: Text('VIEW ANALYSIS'),
-              //   onPressed: () {
-              //     Navigator.pushNamed(context, '/analysis');
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //       padding: EdgeInsets.all(20.0),
-              //       fixedSize: Size(350, 100),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.all(Radius.circular(20)),
-              //       ),
-              //       textStyle: TextStyle(
-              //         fontSize: 30,
-              //       ),
-              //       primary: Colors.lightBlueAccent[100],
-              //       onPrimary: Colors.black87,
-              //       elevation: 15),
-              // ),
+                SizedBox(height: 60),
+                // ElevatedButton(
+                //   child: Text('VIEW ANALYSIS'),
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, '/analysis');
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //       padding: EdgeInsets.all(20.0),
+                //       fixedSize: Size(350, 100),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.all(Radius.circular(20)),
+                //       ),
+                //       textStyle: TextStyle(
+                //         fontSize: 30,
+                //       ),
+                //       primary: Colors.lightBlueAccent[100],
+                //       onPrimary: Colors.black87,
+                //       elevation: 15),
+                // ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "N: ${test.nitrogen}",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "P: ${test.phosphorous}",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "K: ${test.potassium}",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              )
-            ],
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "N: ${test.nitrogen.toInt()}",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      "P: ${test.phosphorous.toInt()}",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      "K: ${test.potassium.toInt()}",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
