@@ -152,15 +152,15 @@ class _ConnectPageState extends State<ConnectPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "N: ${test.nitrogen.toInt()}",
+                      "N:  ${test.nitrogen.toInt()}",
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      "P: ${test.phosphorous.toInt()}",
+                      "P:  ${test.phosphorous.toInt()}",
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      "K: ${test.potassium.toInt()}",
+                      "K:  ${test.potassium.toInt()}",
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
