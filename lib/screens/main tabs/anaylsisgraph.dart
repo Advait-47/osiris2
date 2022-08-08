@@ -21,53 +21,25 @@ class _GraphPageState extends State<GraphPage> {
 
   List<NPKanalysis> reportAnalysis = [];
   Future<void> getLatestData() async {
-    DatabaseService(uid: user!.uid).getLastTest().then((value) {
-      oldtest.fromJson(value);
-      print(oldtest.testTime);
-      setState(() {
-        reportAnalysis = [
-          NPKanalysis('N', oldtest.nitrogen.toInt(), Colors.redAccent),
-          NPKanalysis('P', oldtest.phosphorous.toInt(), Colors.yellow.shade400),
-          NPKanalysis('K', oldtest.potassium.toInt(), Colors.greenAccent),
-        ];
+    try {
+      DatabaseService(uid: user!.uid).getLastTest().then((value) {
+        print("data");
+        print(value);
+        oldtest.fromJson(value);
+        print(oldtest.testTime);
+        setState(() {
+          reportAnalysis = [
+            NPKanalysis('N', oldtest.nitrogen.toInt(), Colors.redAccent),
+            NPKanalysis(
+                'P', oldtest.phosphorous.toInt(), Colors.yellow.shade400),
+            NPKanalysis('K', oldtest.potassium.toInt(), Colors.greenAccent),
+          ];
+        });
       });
-    });
-    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(user!.uid)
-    //     .collection('tests')
-    //     .get();
-
-    // // Get data from docs and convert map to List
-    // print(querySnapshot.docs.last.data());
-    // print("pl,mn bvcfghjkl");
-    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    // print(allData.last);
-
-    // FutureBuilder(
-    //   future: DatabaseService(uid: user!.uid).getLastTest(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       print("odsnsudfinfosdf");
-    //       return Text(snapshot.data.toString());
-    //     } else {
-    //       print("object");
-    //       return CircularProgressIndicator();
-    //     }
-    //     // if (snapshot.hasData) {
-    //     //   print(snapshot.data);
-    //     // } else {
-    //     //   print("no data");
-    //     // }
-    //     // return Text("data");
-    //   },
-    // );
-
-    // DatabaseService(uid: user!.uid).getLastTest().then((value) {
-    //   print(value);
-    //   //oldtest = value;
-    //   print("object");
-    // });
+    } catch (e) {
+      print("another one");
+      print(e.toString());
+    }
   }
 
   @override
