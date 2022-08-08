@@ -137,6 +137,24 @@ class _ConnectPageState extends State<ConnectPage> {
               //       onPrimary: Colors.black87,
               //       elevation: 15),
               // ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "N: ${test.nitrogen}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "P: ${test.phosphorous}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "K: ${test.potassium}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              )
             ],
           ),
         ),
