@@ -93,11 +93,22 @@ class DatabaseService {
     //   print("object");
     //   throw 'aaaaaaa';
     // }
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('tests')
-        .get();
-    return querySnapshot.docs.last.data();
+
+    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(uid)
+    //     .collection('tests')
+    //     .get();
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('tests')
+          .get();
+      return querySnapshot.docs.last.data();
+    } catch (e) {
+      print("lol");
+      print(e.toString());
+    }
   }
 }

@@ -19,6 +19,14 @@ class _ConnectPageState extends State<ConnectPage> {
   final AuthService _auth = AuthService();
   TestData test = TestData.init();
 
+  Future<void> getLatestData() async {
+    DatabaseService(uid: user!.uid).getLastTest().then((value) {
+      test.fromJson(value);
+      print(test.testTime);
+      setState(() {});
+    });
+  }
+
   postTestData() async {
     DatabaseService(uid: user!.uid.toString())
         .createNewTest(test)
@@ -32,6 +40,7 @@ class _ConnectPageState extends State<ConnectPage> {
   void initState() {
     // postTestData();
     // print("happy");
+    getLatestData();
     super.initState();
   }
 
@@ -137,6 +146,24 @@ class _ConnectPageState extends State<ConnectPage> {
               //       onPrimary: Colors.black87,
               //       elevation: 15),
               // ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "N: ${test.nitrogen}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "P: ${test.phosphorous}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "K: ${test.potassium}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              )
             ],
           ),
         ),
